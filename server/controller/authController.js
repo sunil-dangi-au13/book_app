@@ -47,9 +47,6 @@ const JWT_SECRET = 'spiderman123';
          }
          const authtoken = jwt.sign(data, JWT_SECRET)
          success = true;
-
-         //console.log(auth_token);
-         //res.json(user)
          res.json({success, authtoken })
       } catch (error) {
          console.error(error.message);
@@ -100,23 +97,15 @@ const JWT_SECRET = 'spiderman123';
    }
 
 
-//Route No-----3  Get User Details------>>>> Post method------ api/auth/getuser------   Login Required//
+//Route No-----3  Get User Details------>>>> Get method------ api/auth/getuser------   Login Required//
 exports.getuser = async (req, res) => {
 
       try {
-         //let userid = "_id"
-         //console.log(mongoose.Types.ObjectId(userid))
          const userId = req.user;
          console.log(userId, '--->>>');
          const user = await User.findById( userId).select('-password');
-         //      if (req.user.id.match(/^[0-9a-fA-F]{24}$/)|| !user) {
-         //       return res.status(404).json({message:"not found"})
-         //       // Yes, it's a valid ObjectId, proceed with `findById` call.
-         //   }
-         //res.status(200).json(user)
          console.log(user, '---->>>>>');
          res.send(user)
-         //return res.json(user)
       } catch (error) {
          console.error(error.message);
          res.status(500).send(' Internal server error')

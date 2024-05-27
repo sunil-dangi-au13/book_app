@@ -4,44 +4,14 @@ import './App.css'
 import Navbar from './components/Navbar';
 import About from './components/About';
 import Home from './components/Home';
-// import NoteState from './context/notes/NoteState';
 import Alert from './components/Alert';
 import Signup from './components/Signup';
 import Login from './components/Login'
-import NoteContext from './context/notes/noteContext';
+import BookContext from './context/books/BookContext';
 
-
-// const routesarr = [
-//   {
-//     path:'/',
-//     component:<Home/>,
-//     acess:localStorage.getItem('token')
-//   },
-//   {
-//     path:'/home',
-//     component:<Home/>,
-//     acess:localStorage.getItem('token')
-//   },
-//   {
-//     path:'/about',
-//     component:<About/>,
-//     acess:localStorage.getItem('token')
-//   },
-//   {
-//     path:'/login',
-//     component:<Login/>,
-//     acess:!localStorage.getItem('token')
-//   },
-//   {
-//     path:'/signup',
-//     component:<Signup/>,
-//     acess:localStorage.getItem('token')
-//   }
-
-// ]
 
 function App() {
-  const context = useContext(NoteContext)
+  const context = useContext(BookContext)
   const [alert, setAlert] = useState(null)
    const showAlert = (message, type) => {
     setAlert({
@@ -91,13 +61,6 @@ function App() {
 
       <BrowserRouter>
         <Navbar />
-        {/* {
-        !localStorage.getItem('token') && (
-          <Link to={'/login'} >
-            Go to login
-          </Link>
-        )
-      } */}
         <Alert alert={alert} />
         <div className="container">
           <Routes>

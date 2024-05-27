@@ -5,9 +5,6 @@ const mongoose = require('mongoose');
         type:mongoose.Schema.Types.ObjectId,
         ref:'user',
     },
-    // _id:{
-    //     type:Schema.Types.ObjectId,
-    // },
     title:{
         type:String,
         required:true,

@@ -1,63 +1,49 @@
 import React, { useContext, useEffect, useRef,useState } from 'react';
-import noteContext from '../context/notes/noteContext';
-import Noteitem from './Noteitem';
-import AddNote from './AddNote';
+import BookContext from '../context/books/BookContext';
+import Bookitem from './Bookitem';
+import AddBook from './AddBook';
 import { useNavigate } from 'react-router-dom';
 
 
-const Notes = (props) => {
+const Books = (props) => {
   const navigate = useNavigate()
-  const context = useContext(noteContext);
+  const context = useContext(BookContext);
   const {acessToken}= context
-  const { notes, addNote, getnotes,editNote } = context
+  const { books, addBook, getbooks,editBook } = context
   
   useEffect(() => {
-    //console.log("localstorage",localStorage.getItem("token"))
     if(localStorage.getItem("token")){
-      getnotes(addNote)
+      getbooks(addBook)
     }
     else{
      navigate("/login")
     }
     
    }, [])
-  // useEffect(()=>{
-  //   if(acessToken){
-  //     getnotes()
-
-  //   }
-  //   else{
-  //     navigate('/login')
-  //   }
-
-  // },[])
+  
   const ref = useRef(null);
   const refclose = useRef(null);
-  const[note,setNote] = useState({id:"",etitle:"",edescription:"",etag:""})
+  const[book,setBook] = useState({id:"",etitle:"",edescription:"",eauthor:""})
 
-  const updateNote = (currentnote) => {
+  const updateBook = (currentbook) => {
 
     ref.current.click()
-    setNote({id:currentnote._id, etitle:currentnote.title,edescription:currentnote.description,etag:currentnote.tag})
+    setBook({id:currentbook?._id, etitle:currentbook?.title,edescription:currentbook?.description,eauthor:currentbook?.author})
 
     
   }
   const handleClick = (e)=>{
     refclose.current.click()
     props.showAlert("Updated Sucessfully", "Sucess")
-    console.log("updating note", note);
-    editNote(note.id,note.etitle,note.edescription,note.etag)
+    editBook(book.id,book.etitle,book.edescription,book.eauthor)
     
-  //addNote(note.title, note.description, note.tag)
-  //props.showAlert("Note Added Sucessfully","Sucess")
    }
    const onChange = (e)=>{
-    setNote({...note,[e.target.name]:e.target.value})
-
+    setBook({...book,[e.target.name]:e.target.value})
    }
   return (
     <>
-      <AddNote showAlert={props.showAlert} />
+      <AddBook showAlert={props.showAlert} />
 
       <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Launch demo modal
@@ -75,34 +61,34 @@ const Notes = (props) => {
               <form className='my-3'>
                 <div className="mb-3">
                   <label htmlFor="title" className="form-label">Title</label>
-                  <input type="text" className="form-control" id="etitle" name='etitle' value={note.etitle} aria-describedby="emailHelp" onChange={onChange} />
+                  <input type="text" className="form-control" id="etitle" name='etitle' value={book.etitle} aria-describedby="emailHelp" onChange={onChange} />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="description" className="form-label">Description</label>
-                  <input type="text" className="form-control" id="edescription" name='edescription' value={note.edescription} onChange={onChange} />
+                  <input type="text" className="form-control" id="edescription" name='edescription' value={book.edescription} onChange={onChange} />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="tag" className="form-label">Tag</label>
-                  <input type="text" className="form-control" id="etag" name='etag' value={note.etag} onChange={onChange} />
+                  <label htmlFor="tag" className="form-label">Author</label>
+                  <input type="text" className="form-control" id="eauthor" name='eauthor' value={book.eauthor} onChange={onChange} />
                 </div>
               </form>
             </div>
             <div className="modal-footer">
               <button ref={refclose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button onClick={handleClick} type="button" className="btn btn-primary">Update Note</button>
+              <button onClick={handleClick} type="button" className="btn btn-primary">Update Book</button>
             </div>
           </div>
         </div>
       </div>
-      <div className="row my-3">
-        <h2>Your Notes</h2>
-        {notes.length == 0 && "No Note Availble"}
-        {notes.map((note) => {
-          return <Noteitem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />
+      <div className="row my-6">
+        <h2>Your Books</h2>
+        {books.length == 0 && "No Book Availble"}
+        {books.map((book) => {
+          return <Bookitem key={book._id} updateBook={updateBook} showAlert={props.showAlert} book={book} />
         })}
       </div>
     </>
   )
 }
 
-export default Notes
+export default Books

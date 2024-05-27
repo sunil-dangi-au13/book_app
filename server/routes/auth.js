@@ -15,7 +15,7 @@ router.post('/login',controller.loginuser)
 
  
 
-//Route No-----3  Get User Details------>>>> Post method------ api/auth/getuser------   Login Required//
+//Route No-----3  Get User Details------>>>> Get method------ api/auth/getuser------   Login Required//
 router.get('/getuser',fetchuser,controller.getuser)
 
 

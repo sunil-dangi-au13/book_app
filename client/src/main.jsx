@@ -2,13 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import NoteState from './context/notes/NoteState.jsx'
+import BookState from './context/books/BookState.jsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <NoteState>
+    <BookState>
     <App />
-    </NoteState>
+    </BookState>
   </React.StrictMode>,
 )

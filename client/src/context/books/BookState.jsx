@@ -1,6 +1,6 @@
 import  { useEffect, useState } from "react";
-import NoteContext from "../notes/NoteContext/";
-const NoteState = (props) => {
+import BookContext from "../books/BookContext";
+const BookState = (props) => {
     const [acessToken, setAcessToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token'):null )
     // console.log('token', acessToken);
     useEffect(()=>{
@@ -39,10 +39,10 @@ const NoteState = (props) => {
         //     "__v": 0
         // },
     ]
-    const [notes, setNotes] = useState(notesintial)
+    const [books, setBooks] = useState(notesintial)
 
     //Fetch All Notes---->>>>>>//
-    const getnotes = async () => {
+    const getbooks = async () => {
         const response = await fetch(`${host}/api/books/fetchbooks`, {
             method: "GET",
             headers: {
@@ -52,12 +52,12 @@ const NoteState = (props) => {
             }
         })
         const json = await response.json();
-        console.log('fetch notes',json);
-        setNotes(json)
+        console.log('fetch books',json);
+        setBooks(json)
 
     }
-    //Add Notes------>>>>>>>>>>//
-    const addNote = async (title, description, tag,) => {
+    //Add books------>>>>>>>>>>//
+    const addBook = async (title, description, author,) => {
 
         //Api Call--->>>>>>>>>//
         const response = await fetch(`${host}/api/books/addbook`, {
@@ -68,32 +68,17 @@ const NoteState = (props) => {
                 "auth-token": acessToken
                 
             },
-            body: JSON.stringify({ title, description, tag })
+            body: JSON.stringify({ title, description, author })
 
         })
         const json = await response.json();
         console.log(json);
-
-        //   if(addNote=response){alert("Note Added")}
-        console.log("Adding a Note");
-        // const note = {
-        //     "_id": "6478445ef5a233d06fdc9986",
-        //     "userid": "647842a56ba352fd30184ae64",
-        //     "title": title,
-        //     "description": description,
-        //     "tag": tag,
-        //     "date": "2023-06-01T07:10:22.691Z",
-        //     "__v": 0
-
-        // }
-
-        setNotes(notes.concat(json))
-        //setNotes(json)
+        setBooks(books.concat(json))
 
     }
 
-    //Edit Notes------>>>>>>//
-    const editNote = async (id, title, description, tag) => {
+    //Edit Book------>>>>>>//
+    const editBook = async (id, title, description, author) => {
         const response = await fetch(`${host}/api/books/bookupdate/${id}`, {
             method: "PUT",
             headers: {
@@ -101,7 +86,7 @@ const NoteState = (props) => {
                 //"auth-token": localStorage.getItem("token")
                 "auth-token": acessToken
             },
-            body: JSON.stringify({ title, description, tag })
+            body: JSON.stringify({ title, description, author })
 
         })
         const json = await response.json();
@@ -109,22 +94,21 @@ const NoteState = (props) => {
 
         //logic to edit in client--->>>>>>//
 
-        for (let index = 0; index < notes.length; index++) {
-            const element = notes[index];
+        for (let index = 0; index < books.length; index++) {
+            const element = books[index];
             if (element._id === id) {
                 element.title = title;
                 element.description = description;
-                element.tag = tag;
+                element.author = author;
             }
         }
 
     }
 
-    //Delete Note----->>>>>>>//
-    const deleteNote = async (id) => {
+    //Delete Book----->>>>>>>//
+    const deleteBook = async (id) => {
 
         //Api Call--->>>>>>>//
-        // const deletenotes = async () => {
         const response = await fetch(`${host}/api/books/deletebook/${id}`, {
             method: "DELETE",
             headers: {
@@ -138,17 +122,17 @@ const NoteState = (props) => {
 
 
         console.log("Note is Deleted by id" + id);
-        const newnotes = notes.filter((note) => { return note._id !== id })
-        setNotes(newnotes)
+        const newnotes = books.filter((note) => { return note._id !== id })
+        setBooks(newnotes)
 
     }
     return (
-        <NoteContext.Provider value={{ notes,  acessToken,setAcessToken, addNote, editNote, deleteNote, getnotes, }}>
+        <BookContext.Provider value={{ books,  acessToken,setAcessToken, addBook, editBook, deleteBook, getbooks, }}>
             {props.children}
-        </NoteContext.Provider>
+        </BookContext.Provider>
     )
 }
 
 
 
-export default NoteState;
+export default BookState;

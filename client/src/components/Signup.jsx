@@ -1,11 +1,11 @@
 
 import React,{useState,useContext} from 'react';
 import{useNavigate} from 'react-router-dom';
-import NoteContext from '../context/notes/noteContext';
+import BookContext from '../context/books/BookContext';
 
 
 const Signup = (props) => {
-  const context = useContext(NoteContext)
+  const context = useContext(BookContext)
   const{setAcessToken}= context
     const navigate = useNavigate()
     
@@ -24,14 +24,11 @@ const Signup = (props) => {
         const json = await response.json();
         console.log(json);
         if(json.success){
-            //Save token and redirect
-            //localStorage.setItem("token",json.authtoken)
              setAcessToken(json.authtoken)
             navigate("/login")
             props.showAlert(" Account Created Successfully","success")
 
         }else{
-            //alert("please enter valid cardential")
             props.showAlert("Invalid Cardential","Danger")
         }
 

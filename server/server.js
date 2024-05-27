@@ -5,7 +5,10 @@ require("dotenv").config()
 const dbConnect = require("./config/db.config")
 dbConnect()
 const port = process.env.port || 3000
+//parse incoming request with json
 app.use(express.json());
+
+//enable core policy//
 app.use(cors());
 
 //routes------//

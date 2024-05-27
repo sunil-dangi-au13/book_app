@@ -1,13 +1,13 @@
 import { useState,useContext } from 'react';
 import {useNavigate} from 'react-router-dom';
-import NoteContext from '../context/notes/noteContext';
+import BookContext from '../context/books/BookContext';
 
  
 
 
 
 const Login = (props) => {
-  const context = useContext(NoteContext)
+  const context = useContext(BookContext)
   const{setAcessToken} = context
     const navigate = useNavigate()
     
@@ -25,8 +25,6 @@ const Login = (props) => {
         const json = await response.json();
         console.log(json);
         if(json.success){
-            //Save token and redirect
-            //setAcessToken?.setItem("token",json.authtoken)
             setAcessToken(json.authtoken)
             navigate("/home")
            props.showAlert(" User Login Successfully","success");
@@ -52,7 +50,7 @@ const Login = (props) => {
     <input type="password" className="form-control" id="password" name='password' value={cardential.password} onChange={onChange}/>
   </div>
    
-  <button type="submit" className="btn btn-primary" >Submit</button>
+  <button type="submit" className="btn btn-primary" >Login</button>
 </form>
   )
 }

@@ -1,22 +1,19 @@
 import {useEffect,useContext} from 'react';
 import {Link,useNavigate,useLocation} from'react-router-dom'
-import NoteContext from '../context/notes/noteContext';
+import BookContext from '../context/books/BookContext';
 
 
 const Navbar = () => {
-  const context = useContext(NoteContext)
+  const context = useContext(BookContext)
   const{acessToken,setAcessToken} = context
   const navigate = useNavigate();
   const handleLogout= ( )=>{
-   // setAcessToken?.removeItem("token");
+    
     setAcessToken(null)
-    //history.push("/login");
     navigate("/login")
-    //props.showAlert(" User Loged Out Successfully","success")
   }
   let location = useLocation();
   useEffect(()=>{
-    //console.log(location.pathname);
   },[location])
   return (
     <nav className="navbar navbar-expand-lg   bg-body-tertiary">

@@ -15,7 +15,7 @@ router.get('/fetchbooks',fetchuser,bookcontroller.fetchbooks)
 
  
 
-//Route No-----3  Book update by id------>>>> Post method------ api/books/updatebook------   //
+//Route No-----3  Book update by id------>>>> Put method------ api/books/bookupdate------   //
 router.put('/bookupdate/:id',fetchuser,bookcontroller.updatebook)
 
 //Rout no -4 Book delete by id-----> delete method------api/books/deletebook//

@@ -1,4 +1,4 @@
- import Notes from "./Notes"
+import Books from "./Books"
 
  const Home = (props) => {
   const{showAlert}= props
@@ -6,7 +6,7 @@
   return (
     <div>
       
-<Notes showAlert={showAlert}/> 
+<Books showAlert={showAlert}/> 
  
     </div>
   )
